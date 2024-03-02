@@ -13,13 +13,13 @@ yarn add text-readability-ts
 
 ## Usage
 ```typescript
-import { fleschKincaidReadingEase, textStandard } from 'text-readability-ts';
+import readability from 'text-readability-ts';
 
 const text = 'This is a sample text.';
-const score = fleschKincaidReadingEase(text);
+const score = readability.fleschKincaidReadingEase(text);
 console.log(score);
 
-const grade = textStandard(text);
+const grade = readability.textStandard(text);
 console.log(grade);
 ```
 
