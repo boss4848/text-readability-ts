@@ -1,7 +1,7 @@
 {
   "name": "text-readability-ts",
-  "version": "1.0.1",
-  "description": "npm package to calculate statistics from text to determine readability, complexity and grade level of a particular corpus.",
+  "version": "1.0.5",
+  "description": "npm package includes TypeScript and is designed to calculate various statistics from text in order to determine the readability, complexity, and grade level of a given corpus.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -18,24 +18,21 @@
     "url": "git+https://github.com/boss4848/text-readability-ts.git"
   },
   "keywords": [
-    "npm",
-    "package",
-    "to",
+    "statistics",
+    "text analysis",
+    "flesch",
     "calculate",
     "statistics",
-    "from",
     "text",
-    "to",
     "determine",
     "readability",
     "complexity",
-    "and",
     "grade",
     "level",
-    "of",
-    "a",
     "particular",
-    "corpus."
+    "corpus.".
+    "typescript",
+    "ts",
   ],
   "author": "Passakorn Puttama",
   "license": "ISC",
@@ -54,7 +51,6 @@
   },
   "dependencies": {
     "@types/pluralize": "^0.0.33",
-    "@types/syllable": "^5.0.2",
-    "syllable": "^5.0.1"
+    "pluralize": "^8.0.0"
   }
 }

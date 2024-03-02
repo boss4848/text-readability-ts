@@ -718,11 +718,6 @@
   dependencies:
     undici-types "~5.26.4"
 
-"@types/pluralize@^0.0.29":
-  version "0.0.29"
-  resolved "https://registry.npmjs.org/@types/pluralize/-/pluralize-0.0.29.tgz"
-  integrity sha512-BYOID+l2Aco2nBik+iYS4SZX0Lf20KPILP5RGmM1IgzdwNdTs0eebiFriOPcej1sX9mLnSoiNte5zcFxssgpGA==
-
 "@types/pluralize@^0.0.33":
   version "0.0.33"
   resolved "https://registry.npmjs.org/@types/pluralize/-/pluralize-0.0.33.tgz"
@@ -732,13 +727,6 @@
   version "2.0.3"
   resolved "https://registry.npmjs.org/@types/stack-utils/-/stack-utils-2.0.3.tgz"
   integrity sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==
-
-"@types/syllable@^5.0.2":
-  version "5.0.2"
-  resolved "https://registry.npmjs.org/@types/syllable/-/syllable-5.0.2.tgz"
-  integrity sha512-HR0vtx9ENUke0rkP8IJJU7Kzb+nIgRuDXck5pv45T6mwiznsS0a/kk8B0SPzmaV61R+toJW4xI/hVWuTJgJpIg==
-  dependencies:
-    syllable "*"
 
 "@types/yargs-parser@*":
   version "21.0.3"
@@ -2137,11 +2125,6 @@ normalize-path@^3.0.0, normalize-path@~3.0.0:
   resolved "https://registry.npmjs.org/normalize-path/-/normalize-path-3.0.0.tgz"
   integrity sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==
 
-normalize-strings@^1.1.0:
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/normalize-strings/-/normalize-strings-1.1.1.tgz"
-  integrity sha512-fARPRdTwmrQDLYhmeh7j/eZwrCP6WzxD6uKOdK/hT/uKACAE9AG2Bc2dgqOZLkfmmctHpfcJ9w3AQnfLgg3GYg==
-
 npm-run-path@^4.0.1:
   version "4.0.1"
   resolved "https://registry.npmjs.org/npm-run-path/-/npm-run-path-4.0.1.tgz"
@@ -2572,24 +2555,6 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
-syllable@*:
-  version "5.0.1"
-  resolved "https://registry.npmjs.org/syllable/-/syllable-5.0.1.tgz"
-  integrity sha512-HWtNCp6v7J8H0lrT8j1HHjfOLltRoDcC7QRFVu25p4BE52JqetXG65nqC7CsatT8WQRfY4Qvh93BWJIUxbmXFg==
-  dependencies:
-    "@types/pluralize" "^0.0.29"
-    normalize-strings "^1.1.0"
-    pluralize "^8.0.0"
-
-syllable@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.npmjs.org/syllable/-/syllable-5.0.1.tgz"
-  integrity sha512-HWtNCp6v7J8H0lrT8j1HHjfOLltRoDcC7QRFVu25p4BE52JqetXG65nqC7CsatT8WQRfY4Qvh93BWJIUxbmXFg==
-  dependencies:
-    "@types/pluralize" "^0.0.29"
-    normalize-strings "^1.1.0"
-    pluralize "^8.0.0"
-
 test-exclude@^6.0.0:
   version "6.0.0"
   resolved "https://registry.npmjs.org/test-exclude/-/test-exclude-6.0.0.tgz"
@@ -2600,12 +2565,11 @@ test-exclude@^6.0.0:
     minimatch "^3.0.4"
 
 "text-readability-ts@file:":
-  version "1.0.0"
+  version "1.0.4"
   resolved "file:"
   dependencies:
     "@types/pluralize" "^0.0.33"
-    "@types/syllable" "^5.0.2"
-    syllable "^5.0.1"
+    pluralize "^8.0.0"
     text-readability-ts "file:"
 
 thenify-all@^1.0.0:

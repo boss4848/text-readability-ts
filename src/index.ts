@@ -1,8 +1,5 @@
 import pluralize from 'pluralize';
-import syllable from 'syllable';
-
-// const syllable = require('syllable');
-// const plural = require('pluralize');
+import syllable from './syllable';
 
 import easyWords from '../data/easy_words';
 
