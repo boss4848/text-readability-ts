@@ -1,6 +1,6 @@
 {
   "name": "text-readability-ts",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "npm package includes TypeScript and is designed to calculate various statistics from text in order to determine the readability, complexity, and grade level of a given corpus.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -30,9 +30,9 @@
     "grade",
     "level",
     "particular",
-    "corpus.".
+    "corpus.",
     "typescript",
-    "ts",
+    "ts"
   ],
   "author": "Passakorn Puttama",
   "license": "MIT",
