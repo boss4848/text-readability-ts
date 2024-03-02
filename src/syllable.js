@@ -1,7 +1,3 @@
-// import pluralize from 'pluralize'
-// // @ts-ignore remove when typed.
-// import normalize from 'normalize-strings'
-// import { problematic } from './problematic.js'
 const pluralize = require('pluralize')
 const normalize = require('./normalize')
 const problematic = {

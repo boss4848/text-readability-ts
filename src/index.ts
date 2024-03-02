@@ -51,12 +51,24 @@ class Readability {
         // text = text.filter(n => n);
         return text.split(/,| |\n|\r/g).filter(n => n);
     }
+    /**
+     * Calculates the number of words present in the text.
+     * @param {string} text - The text to count the words of.
+     * @param {boolean} [removePunctuation=true] - Whether to ignore punctuation.
+     * @returns {number} The word count.
+     */
     lexiconCount(text: string, removePunctuation: boolean = true): number {
         if (removePunctuation) text = this.removePunctuation(text);
         // text = text.split(/,| |\n|\r/g);
         // text = text.filter(n => n);
         return text.split(/,| |\n|\r/g).filter(n => n).length;
     }
+    /**
+     * Returns the number of syllables present in the given text.
+     * @param {string} text - The text to count the syllables of.
+     * @param {string} [lang='en-US'] - The language of the text.
+     * @returns {number} The syllable count.
+     */
     syllableCount(text: string, lang: string = 'en-US'): number {
         text = text.toLocaleLowerCase(lang);
         text = this.removePunctuation(text);
@@ -65,6 +77,11 @@ class Readability {
         const count = syllable(text);
         return count;
     }
+    /**
+     * Returns the number of sentences present in the given text.
+     * @param {string} text - The text to count the sentences of.
+     * @returns {number} The sentence count.
+     */
     sentenceCount(text: string): number {
         let ignoreCount: number = 0;
         let sentences: string[] = text.split(/ *[.?!]['")\]]*[ |\n](?=[A-Z])/g);
@@ -101,6 +118,11 @@ class Readability {
         const returnVal: number = Math.legacyRound(sentencesPerWord, 2);
         return !isNaN(returnVal) ? returnVal : 0.0;
     }
+    /**
+     * Returns the Flesch Reading Ease Score.
+     * @param {string} text - The text to calculate the score of.
+     * @returns {number} The Flesch Reading Ease Score.
+     */
     fleschReadingEase(text: string): number {
         const sentenceLength: number = this.averageSentenceLength(text);
         const syllablesPerWord: number = this.averageSyllablePerWord(text);
@@ -118,6 +140,11 @@ class Readability {
         else if (score < 40 && score >= 30) return 15;
         else return 16;
     }
+    /**
+     * Returns the Flesch-Kincaid Grade of the given text.
+     * @param {string} text - The text to calculate the grade of.
+     * @returns {number} The Flesch-Kincaid Grade.
+     */
     fleschKincaidGrade(text: string): number {
         const sentenceLength: number = this.averageSentenceLength(text);
         const syllablePerWord: number = this.averageSyllablePerWord(text);
@@ -134,6 +161,11 @@ class Readability {
         }
         return count;
     }
+    /**
+     * Returns the SMOG index of the given text.
+     * @param {string} text - The text to calculate the SMOG index of.
+     * @returns {number} The SMOG index.
+     */
     smogIndex(text: string): number {
         const sentences: number = this.sentenceCount(text);
         if (sentences >= 3) {
@@ -144,12 +176,22 @@ class Readability {
         }
         return 0.0;
     }
+    /**
+     * Returns the grade level of the text using the Coleman-Liau Formula.
+     * @param {string} text - The text to calculate the grade level of.
+     * @returns {number} The grade level.
+     */
     colemanLiauIndex(text: string): number {
         const letters: number = Math.legacyRound(this.averageLetterPerWord(text) * 100, 2);
         const sentences: number = Math.legacyRound(this.averageSentencePerWord(text) * 100, 2);
         const coleman: number = 0.058 * letters - 0.296 * sentences - 15.8;
         return Math.legacyRound(coleman, 2);
     }
+    /**
+     * Returns the ARI (Automated Readability Index) of the given text.
+     * @param {string} text - The text to calculate the ARI of.
+     * @returns {number} The ARI.
+     */
     automatedReadabilityIndex(text: string): number {
         const characters: number = this.charCount(text);
         const words: number = this.lexiconCount(text);
@@ -165,6 +207,11 @@ class Readability {
         const returnVal: number = Math.legacyRound(readability, 1);
         return !isNaN(returnVal) ? returnVal : 0.0;
     }
+    /**
+     * Returns the grade level using the Linsear Write Formula.
+     * @param {string} text - The text to calculate the grade level of.
+     * @returns {number} The grade level.
+     */
     linsearWriteFormula(text: string): number {
         let easyWord: number = 0;
         let difficultWord: number = 0;
@@ -230,6 +277,11 @@ class Readability {
         if (difficultWords > 5) score += 3.6365;
         return Math.legacyRound(score, 2);
     }
+    /**
+     * Returns the grade level using the New Dale-Chall Formula.
+     * @param {string} text - The text to calculate the grade level of.
+     * @returns {number} The grade level.
+     */
     daleChallToGrade(score: number): number {
         if (score <= 4.9) return 4;
         if (score < 5.9) return 5;
@@ -239,6 +291,11 @@ class Readability {
         if (score < 9.9) return 13;
         else return 16;
     }
+    /**
+     * Returns the FOG index of the given text.
+     * @param {string} text - The text to calculate the FOG index of.
+     * @returns {number} The FOG index.
+     */
     gunningFog(text: string): number {
         const perDiffWords: number = (this.difficultWords(text, 3) / this.lexiconCount(text) * 100);
         const grade: number = 0.4 * (this.averageSentenceLength(text) + perDiffWords);
@@ -261,6 +318,12 @@ class Readability {
         const rix: number = longWordsCount / sentencesCount;
         return !isNaN(rix) ? Math.legacyRound(rix, 2) : 0.0;
     }
+    /**
+     * Based upon all the above tests, returns the estimated school grade level required to understand the text.
+     * @param {string} text - The text to calculate the grade level of.
+     * @param {boolean} [float_output=false] - Whether to return the score as a float.
+     * @returns {number|string} The grade level.
+     */
     textStandard(text: string, floatOutput: boolean | null = null): string | number {
         const grade: number[] = [];
         // Appending Flesch Kincaid Grade

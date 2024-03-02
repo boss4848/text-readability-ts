@@ -35,7 +35,7 @@
     "ts",
   ],
   "author": "Passakorn Puttama",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/boss4848/text-readability-ts/issues"
   },
