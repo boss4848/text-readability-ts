@@ -24,6 +24,12 @@ Math.legacyRound = (number: number, points: number = 0): number => {
 };
 
 class Readability {
+
+    /**
+     * Returns the grade suffix of the given grade.
+     * @param {number} grade - The grade to get the suffix of.
+     * @returns {string} The grade suffix.
+     */
     static getGradeSuffix(grade: number): string {
         grade = Math.floor(grade);
         // poor function fix this, gives { 22th and 23th grade }
@@ -34,25 +40,52 @@ class Readability {
         };
         return gradeMap[grade] ? gradeMap[grade] : 'th';
     }
+
+    /**
+     * Returns the character count of the given text.
+     * @param {string} text - The text to count the characters of.
+     * @param {boolean} [ignoreSpaces=true] - Whether to ignore spaces.
+     * @returns {number} The character count.
+     */
     charCount(text: string, ignoreSpaces: boolean = true): number {
         if (ignoreSpaces) text = text.replace(/ /g, '');
         return text.length;
     }
+
+    /**
+     * Returns the letter count of the given text.
+     * @param {string} text - The text to count the letters of.
+     * @param {boolean} [ignoreSpaces=true] - Whether to ignore spaces.
+     * @returns {number} The letter count.
+     */
     letterCount(text: string, ignoreSpaces: boolean = true): number {
         if (ignoreSpaces) text = text.replace(/ /g, '');
         return this.removePunctuation(text).length;
     }
+
+    /**
+     * Removes punctuation from the given text.
+     * @param {string} text - The text to remove punctuation from.
+     * @returns {string} The text without punctuation.
+     */
     removePunctuation(text: string): string {
         text = text.replace(punctuationRE, '');
         return text;
     }
+
+    /**
+     * Splits the given text into an array of strings.
+     * @param {string} text - The text to split.
+     * @returns {string[]} The split text.
+     */
     static split(text: string): string[] {
         // text = text.split(/,| |\n|\r/g);
         // text = text.filter(n => n);
         return text.split(/,| |\n|\r/g).filter(n => n);
     }
+
     /**
-     * Calculates the number of words present in the text.
+     * Calculates the number of words present in the text. Optional removePunctuation specifies whether we need to take punctuation symbols into account while counting lexicons. Default value is true, which removes the punctuation before counting lexicon items.
      * @param {string} text - The text to count the words of.
      * @param {boolean} [removePunctuation=true] - Whether to ignore punctuation.
      * @returns {number} The word count.
@@ -63,6 +96,7 @@ class Readability {
         // text = text.filter(n => n);
         return text.split(/,| |\n|\r/g).filter(n => n).length;
     }
+
     /**
      * Returns the number of syllables present in the given text.
      * @param {string} text - The text to count the syllables of.
@@ -77,6 +111,7 @@ class Readability {
         const count = syllable(text);
         return count;
     }
+
     /**
      * Returns the number of sentences present in the given text.
      * @param {string} text - The text to count the sentences of.
@@ -91,11 +126,23 @@ class Readability {
         const validSentences: number = sentences.length - ignoreCount;
         return validSentences > 1 ? validSentences : 1;
     }
+
+    /**
+     * Returns the average sentence length of the given text.
+     * @param {string} text - The text to calculate the average sentence length of.
+     * @returns {number} The average sentence length.
+     */
     averageSentenceLength(text: string): number {
         const asl: number = this.lexiconCount(text) / this.sentenceCount(text);
         const returnVal: number = Math.legacyRound(asl, 1);
         return !isNaN(returnVal) ? returnVal : 0.0;
     }
+
+    /**
+     * Returns the average syllable per word of the given text.
+     * @param {string} text - The text to calculate the average syllable per word of.
+     * @returns {number} The average syllable per word.
+     */
     averageSyllablePerWord(text: string): number {
         const syllables: number = this.syllableCount(text);
         const words: number = this.lexiconCount(text);
@@ -103,21 +150,40 @@ class Readability {
         const returnVal: number = Math.legacyRound(syllablePerWord, 1);
         return !isNaN(returnVal) ? returnVal : 0.0;
     }
+
+    /**
+     * Returns the average character per word of the given text.
+     * @param {string} text - The text to calculate the average character per word of.
+     * @returns {number} The average character per word.
+     */
     averageCharacterPerWord(text: string): number {
         const charactersPerWord: number = this.charCount(text) / this.lexiconCount(text);
         const returnVal: number = Math.legacyRound(charactersPerWord, 2);
         return !isNaN(returnVal) ? returnVal : 0.0;
     }
+
+    /**
+     * Returns the average letter per word of the given text.
+     * @param {string} text - The text to calculate the average letter per word of.
+     * @returns {number} The average letter per word.
+     */
     averageLetterPerWord(text: string): number {
         const lettersPerWord: number = this.letterCount(text) / this.lexiconCount(text);
         const returnVal: number = Math.legacyRound(lettersPerWord, 2);
         return !isNaN(returnVal) ? returnVal : 0.0;
     }
+
+    /**
+     * Returns the average sentence per word of the given text.
+     * @param {string} text - The text to calculate the average sentence per word of.
+     * @returns {number} The average sentence per word.
+     */
     averageSentencePerWord(text: string): number {
         const sentencesPerWord: number = this.sentenceCount(text) / this.lexiconCount(text);
         const returnVal: number = Math.legacyRound(sentencesPerWord, 2);
         return !isNaN(returnVal) ? returnVal : 0.0;
     }
+
     /**
      * Returns the Flesch Reading Ease Score.
      * @param {string} text - The text to calculate the score of.
@@ -130,6 +196,7 @@ class Readability {
         const returnVal: number = Math.legacyRound(flesch, 2);
         return returnVal;
     }
+
     fleschReadingEaseToGrade(score: number): number {
         if (score < 100 && score >= 90) return 5;
         else if (score < 90 && score >= 80) return 6;
@@ -152,6 +219,12 @@ class Readability {
         const returnVal: number = Math.legacyRound(flesch, 1);
         return returnVal;
     }
+
+    /**
+     * Returns the polysyllable count of the given text.
+     * @param {string} text - The text to calculate the polysyllable count of.
+     * @returns {number} The polysyllable count.
+     */
     polySyllableCount(text: string): number {
         let count: number = 0;
         let wrds: number = 0;
@@ -161,6 +234,7 @@ class Readability {
         }
         return count;
     }
+
     /**
      * Returns the SMOG index of the given text.
      * @param {string} text - The text to calculate the SMOG index of.
@@ -176,6 +250,7 @@ class Readability {
         }
         return 0.0;
     }
+
     /**
      * Returns the grade level of the text using the Coleman-Liau Formula.
      * @param {string} text - The text to calculate the grade level of.
@@ -187,6 +262,7 @@ class Readability {
         const coleman: number = 0.058 * letters - 0.296 * sentences - 15.8;
         return Math.legacyRound(coleman, 2);
     }
+
     /**
      * Returns the ARI (Automated Readability Index) of the given text.
      * @param {string} text - The text to calculate the ARI of.
@@ -207,6 +283,7 @@ class Readability {
         const returnVal: number = Math.legacyRound(readability, 1);
         return !isNaN(returnVal) ? returnVal : 0.0;
     }
+
     /**
      * Returns the grade level using the Linsear Write Formula.
      * @param {string} text - The text to calculate the grade level of.
@@ -230,6 +307,16 @@ class Readability {
         returnVal = Math.legacyRound(returnVal, 1);
         return !isNaN(returnVal) ? returnVal : 0.0;
     }
+
+    /**
+     * Returns the present tense of the given word.
+     * @param {string} word - The word to get the present tense of.
+     * @returns {string} The present tense.
+     * @example
+     * presentTense('running'); // 'run'
+     * presentTense('swimming'); // 'swim'
+     * presentTense('eating'); // 'eat'
+    */
     presentTense(word: string): string {
         // good enough for most long words -- we only care about "difficult" words
         // of two or more syllables anyway.
@@ -251,6 +338,13 @@ class Readability {
         }
         return word;
     }
+
+    /**
+     * Returns the number of difficult words in the given text.
+     * @param {string} text - The text to count the difficult words of.
+     * @param {number} [syllableThreshold=2] - The syllable threshold.
+     * @returns {number} The number of difficult words.
+     */
     difficultWords(text: string, syllableThreshold: number = 2): number {
         const textList: string[] | null = text.match(/[\w=‘’]+/g);
         const diffWordsSet: Set<string> = new Set();
@@ -266,6 +360,12 @@ class Readability {
         }
         return diffWordsSet.size;
     }
+
+    /**
+     * Returns the New Dale-Chall Formula score of the given text.
+     * @param {string} text - The text to calculate the score of.
+     * @returns {number} The score.
+     */
     daleChallReadabilityScore(text: string): number {
         const wordCount: number = this.lexiconCount(text);
         const count: number = wordCount - this.difficultWords(text);
@@ -277,6 +377,7 @@ class Readability {
         if (difficultWords > 5) score += 3.6365;
         return Math.legacyRound(score, 2);
     }
+
     /**
      * Returns the grade level using the New Dale-Chall Formula.
      * @param {string} text - The text to calculate the grade level of.
@@ -291,6 +392,7 @@ class Readability {
         if (score < 9.9) return 13;
         else return 16;
     }
+
     /**
      * Returns the FOG index of the given text.
      * @param {string} text - The text to calculate the FOG index of.
@@ -302,6 +404,12 @@ class Readability {
         const returnVal: number = Math.legacyRound(grade, 2);
         return !isNaN(returnVal) ? returnVal : 0.0;
     }
+
+    /**
+     * Returns the LIX of the given text.
+     * @param {string} text - The text to calculate the LIX of.
+     * @returns {number} The LIX.
+     */
     lix(text: string): number {
         const words: string[] = Readability.split(text);
         const wordsLen: number = words.length;
@@ -311,6 +419,12 @@ class Readability {
         const lix: number = asl + perLongWords;
         return Math.legacyRound(lix, 2);
     }
+
+    /**
+     * Returns the RIX of the given text.
+     * @param {string} text - The text to calculate the RIX of.
+     * @returns {number} The RIX.
+     */
     rix(text: string): number {
         const words: string[] = Readability.split(text);
         const longWordsCount: number = words.filter(wrd => wrd.length > 6).length;
@@ -318,6 +432,7 @@ class Readability {
         const rix: number = longWordsCount / sentencesCount;
         return !isNaN(rix) ? Math.legacyRound(rix, 2) : 0.0;
     }
+
     /**
      * Based upon all the above tests, returns the estimated school grade level required to understand the text.
      * @param {string} text - The text to calculate the grade level of.
@@ -398,6 +513,12 @@ class Readability {
         const upperScore: number = lowerScore + 1;
         return `${lowerScore}${Readability.getGradeSuffix(lowerScore)} and ${upperScore}${Readability.getGradeSuffix(upperScore)} grade`;
     }
+
+    /**
+     * Returns the median grade level of the given text.
+     * @param {string} text - The text to calculate the median grade level of.
+     * @returns {number} The median grade level.
+     */
     textMedian(text: string): number {
         const grade: number[] = [];
         // Appending Flesch Kincaid Grade
@@ -433,5 +554,6 @@ class Readability {
             return grade[half];
     }
 }
+
 const readability: Readability = new Readability();
 export = readability;
