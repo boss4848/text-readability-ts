@@ -14,7 +14,7 @@ yarn add text-readability-ts
 
 ## Usage
 ```typescript
-import raedability from 'text-readability-ts';
+import { fleschKincaidReadingEase, textStandard } from 'text-readability-ts';
 
 const text = 'This is a sample text.';
 const score = readability.fleschKincaidReadingEase(text);
